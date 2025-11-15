@@ -43,7 +43,7 @@ func New(dir string, options *Options) (*Driver, error) {
 		opts = *options
 	}
 
-	if opts.Logger != nil {
+	if opts.Logger == nil {
 		opts.Logger = lumber.NewConsoleLogger((lumber.INFO))
 	}
 
@@ -80,7 +80,7 @@ func (d *Driver) Write(collection, resource string, v interface{}) error {
 	fnlPath := filepath.Join(dir, resource+".json")
 	tmpPath := fnlPath + ".tmp"
 
-	if err := os.Mkdir(dir, 0755); err != nil {
+	if err := os.MkdirAll(dir, 0755); err != nil {
 		return err
 	}
 
