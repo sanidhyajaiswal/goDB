@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"sync"
@@ -91,7 +90,7 @@ func (d *Driver) Write(collection, resource string, v interface{}) error {
 
 	b = append(b, byte('\n'))
 
-	if err := ioutil.WriteFile(tmpPath, b, 0644); err != nil {
+	if err := os.WriteFile(tmpPath, b, 0644); err != nil {
 		return err
 	}
 
@@ -114,7 +113,7 @@ func (d *Driver) Read(collection, resource string, v interface{}) error {
 		return err
 	}
 
-	b, err := ioutil.ReadFile(record + ".json")
+	b, err := os.ReadFile(record + ".json")
 	if err != nil {
 		return err
 	}
@@ -134,12 +133,12 @@ func (d *Driver) ReadAll(collection string) ([]string, error) {
 		return nil, err
 	}
 
-	files, _ := ioutil.ReadDir(dir)
+	files, _ := os.ReadDir(dir)
 
 	var records []string
 
 	for _, file := range files {
-		b, err := ioutil.ReadFile(filepath.Join(dir, file.Name()))
+		b, err := os.ReadFile(filepath.Join(dir, file.Name()))
 		if err != nil {
 			return nil, err
 		}
@@ -251,11 +250,11 @@ func main() {
 	}
 	fmt.Println((allusers))
 
-	// if err:= db.Delete("user", "john"); err != nil{
+	// if err := db.Delete("users", "john"); err != nil {
 	// 	fmt.Println("Error", err)
 	// }
 
-	// if err := db.Delete("user", ""); err != nil{
+	// if err := db.Delete("users", ""); err != nil {
 	// 	fmt.Println("Error", err)
 	// }
 }

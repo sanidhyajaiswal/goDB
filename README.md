@@ -8,6 +8,7 @@ It allows you to store, read, update, and delete records using simple JSON files
 * Configuration storage
 * Simple CLI tools
 * Learning Go’s file I/O, mutexes, and JSON marshalling
+
 ## Features
 
 - Store records as formatted .json files
